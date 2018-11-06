@@ -15,7 +15,8 @@ public class ThreadPoolManager {
         mLoadInfor =
                 new ThreadPoolExecutor(Constant.CORE_POOL_SIZE, Constant.MAXIMUM_POOL_SIZE,
                 Constant.KEEP_ALIVE_TIME, Constant.KEEP_ALIVE_TIME_UNIT, mQueue);
-        for (int i = 0; i < Constant.list.length; i++) {
+        int length = Constant.list.length;
+        for (int i = 0; i < length; i++) {
             mLoadInfor.execute(new LoadInforRunnable(i,context));
         }
     }
