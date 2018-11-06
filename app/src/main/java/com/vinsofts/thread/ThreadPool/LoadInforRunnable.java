@@ -1,6 +1,8 @@
 package com.vinsofts.thread.ThreadPool;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.vinsofts.thread.Constant;
 import com.vinsofts.thread.Inteface.IHandle;
 import com.vinsofts.thread.Model.Song;
@@ -47,6 +49,8 @@ public class LoadInforRunnable implements Runnable {
                 String artwork_url = track.getString("artwork_url");
                 String score = item_collection.getString("score");
                 listSong.add(new Song(artwork_url,score));
+                Log.d("AAAAA", i+"");
+                Thread.sleep(1000);
             }
             switch (number) {
                 case 0:
@@ -68,7 +72,7 @@ public class LoadInforRunnable implements Runnable {
                     handle.getData6(listSong);
                     break;
             }
-        } catch (IOException | JSONException e) {
+        } catch (IOException | JSONException | InterruptedException e) {
             e.printStackTrace();
         }
 

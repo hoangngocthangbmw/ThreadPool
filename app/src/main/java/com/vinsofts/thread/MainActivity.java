@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -17,8 +18,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements IHandle {
+    @BindView(R.id.bt_stop)
+    Button btStop;
     private ThreadPoolManager threadPoolManager;
     private List<Song> list1;
     private List<Song> list2;
@@ -174,5 +178,10 @@ public class MainActivity extends AppCompatActivity implements IHandle {
                 myadapter6.notifyDataSetChanged();
             }
         });
+    }
+
+    @OnClick(R.id.bt_stop)
+    public void onViewClicked() {
+        threadPoolManager.getmLoadInfor().shutdownNow();
     }
 }
