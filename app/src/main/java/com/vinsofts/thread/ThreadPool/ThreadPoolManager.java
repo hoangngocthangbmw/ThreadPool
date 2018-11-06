@@ -8,14 +8,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class ThreadPoolManager {
-    public static ThreadPoolManager newInstance(Context context) {
-        ThreadPoolManager threadPoolManager = new ThreadPoolManager(context);
-        return threadPoolManager;
-    }
+    private ThreadPoolExecutor mLoadInfor;
 
-    private ThreadPoolManager(Context context) {
+    public ThreadPoolManager(Context context) {
         BlockingQueue<Runnable> mQueue= new LinkedBlockingQueue<>();
-        ThreadPoolExecutor mLoadInfor =
+        mLoadInfor =
                 new ThreadPoolExecutor(Constant.CORE_POOL_SIZE, Constant.MAXIMUM_POOL_SIZE,
                 Constant.KEEP_ALIVE_TIME, Constant.KEEP_ALIVE_TIME_UNIT, mQueue);
         for (int i = 0; i < Constant.list.length; i++) {
@@ -23,4 +20,7 @@ public class ThreadPoolManager {
         }
     }
 
+    public ThreadPoolExecutor getmLoadInfor() {
+        return mLoadInfor;
+    }
 }

@@ -6,16 +6,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
 import com.vinsofts.thread.Adapter.Myadapter;
 import com.vinsofts.thread.Inteface.IHandle;
 import com.vinsofts.thread.Model.Song;
 import com.vinsofts.thread.ThreadPool.ThreadPoolManager;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements IHandle {
+    private ThreadPoolManager threadPoolManager;
     private List<Song> list1;
     private List<Song> list2;
     private List<Song> list3;
@@ -64,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements IHandle {
         myadapter5 = new Myadapter(this, list5);
         myadapter6 = new Myadapter(this, list6);
 
-        ThreadPoolManager.newInstance(this);
+        threadPoolManager = new ThreadPoolManager(this);
+
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this,
@@ -91,6 +96,12 @@ public class MainActivity extends AppCompatActivity implements IHandle {
         rcMain4.setAdapter(myadapter4);
         rcMain5.setAdapter(myadapter5);
         rcMain6.setAdapter(myadapter6);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        threadPoolManager.getmLoadInfor().shutdownNow();
     }
 
     @Override
